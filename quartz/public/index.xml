@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+      <title>Мои заметки</title>
+      <link>https://konstantinovandrey.github.io/webapp</link>
+      <description>Последние 10 заметок on Мои заметки</description>
+      <generator>Quartz -- quartz.jzhao.xyz</generator>
+      <item>
+    <title>Акторные системы</title>
+    <link>https://konstantinovandrey.github.io/webapp/%D0%90%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B5-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B</link>
+    <guid>https://konstantinovandrey.github.io/webapp/%D0%90%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B5-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B</guid>
+    <description>created: ‘12-02-2025 21:11’ 1 Теория акторов The Actor Model was conceived in MIT’s Artificial Intelligence labs back in the mid 1970’s Акторы - математическая модель параллельных вычислений, строящаяся вокруг понятия актора (англ.</description>
+    <pubDate>Tue, 02 Dec 2025 17:11:00 GMT</pubDate>
+  </item><item>
+    <title>00 Алгоритмы(Algorithms)</title>
+    <link>https://konstantinovandrey.github.io/webapp/00-%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B(Algorithms)</link>
+    <guid>https://konstantinovandrey.github.io/webapp/00-%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%D1%8B(Algorithms)</guid>
+    <description>created: ‘10-01-2025 17:14’ Алгоритмы пишуться на псевдокоде(python Тоже неплох) Контест от тинькофф: Думаю эффективность алгоритмов можно увеличить с помощью теории вероятностей.</description>
+    <pubDate>Wed, 01 Oct 2025 13:14:00 GMT</pubDate>
+  </item><item>
+    <title>PostgreSQL</title>
+    <link>https://konstantinovandrey.github.io/webapp/PostgreSQL</link>
+    <guid>https://konstantinovandrey.github.io/webapp/PostgreSQL</guid>
+    <description>created: ‘04-03-2025 16:50’ В PostgreSQL есть встроенный инструмент ERD(Entity Relationship Diagramm) links:: 00 Базы данных.</description>
+    <pubDate>Thu, 03 Apr 2025 12:50:00 GMT</pubDate>
+  </item><item>
+    <title>00 Linux</title>
+    <link>https://konstantinovandrey.github.io/webapp/00-Linux</link>
+    <guid>https://konstantinovandrey.github.io/webapp/00-Linux</guid>
+    <description>created: ‘04-01-2025 18:12’ Отредактировал настройки Grub. links::.</description>
+    <pubDate>Tue, 01 Apr 2025 14:12:00 GMT</pubDate>
+  </item><item>
+    <title>Таксономия</title>
+    <link>https://konstantinovandrey.github.io/webapp/%D0%A2%D0%B0%D0%BA%D1%81%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%8F</link>
+    <guid>https://konstantinovandrey.github.io/webapp/%D0%A2%D0%B0%D0%BA%D1%81%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%8F</guid>
+    <description>created: ‘27-03-2025 22:45’ Таксономия (от др.-греч.</description>
+    <pubDate>Sun, 30 Mar 2025 15:24:16 GMT</pubDate>
+  </item><item>
+    <title>Настройка Decap CMS</title>
+    <link>https://konstantinovandrey.github.io/webapp/%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-Decap-CMS</link>
+    <guid>https://konstantinovandrey.github.io/webapp/%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-Decap-CMS</guid>
+    <description>created: ‘25-03-2025 10:12’ Я пробовал настроить эту headless CMS для GithubPages.</description>
+    <pubDate>Sun, 30 Mar 2025 15:24:16 GMT</pubDate>
+  </item><item>
+    <title>Линии первого порядка</title>
+    <link>https://konstantinovandrey.github.io/webapp/%D0%9B%D0%B8%D0%BD%D0%B8%D0%B8-%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE-%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0</link>
+    <guid>https://konstantinovandrey.github.io/webapp/%D0%9B%D0%B8%D0%BD%D0%B8%D0%B8-%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE-%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0</guid>
+    <description>created: ‘27-03-2025 23:05’ 1 Линии первого порядка в системе координат из 2 осей(x,y) Порядок, как я понял, это степень многочлена, что с дифференциалом, что с линиями.</description>
+    <pubDate>Sun, 30 Mar 2025 15:24:16 GMT</pubDate>
+  </item><item>
+    <title>Кривые, линии и их уравнения</title>
+    <link>https://konstantinovandrey.github.io/webapp/%D0%9A%D1%80%D0%B8%D0%B2%D1%8B%D0%B5,-%D0%BB%D0%B8%D0%BD%D0%B8%D0%B8-%D0%B8-%D0%B8%D1%85-%D1%83%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F</link>
+    <guid>https://konstantinovandrey.github.io/webapp/%D0%9A%D1%80%D0%B8%D0%B2%D1%8B%D0%B5,-%D0%BB%D0%B8%D0%BD%D0%B8%D0%B8-%D0%B8-%D0%B8%D1%85-%D1%83%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F</guid>
+    <description>created: ‘25-02-2025 20:35’ Связанные с темой вещи: Можно пользоваться графическими калькуляторами, например desmos и geogebra Нахождение середины: 1 Системы координат1 1.1 Преобразования систем координат Преобразования, при которых кривые (например, прямые, эллипсы, гиперболы) поворачиваются в прос...</description>
+    <pubDate>Sun, 30 Mar 2025 15:24:16 GMT</pubDate>
+  </item><item>
+    <title>Дифференциальные уравнения</title>
+    <link>https://konstantinovandrey.github.io/webapp/%D0%94%D0%B8%D1%84%D1%84%D0%B5%D1%80%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D1%83%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F</link>
+    <guid>https://konstantinovandrey.github.io/webapp/%D0%94%D0%B8%D1%84%D1%84%D0%B5%D1%80%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D1%83%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F</guid>
+    <description>created: ‘18-02-2025 20:48’ 1 Ресурсы Литература университета СамГТУ - vk.com/wall-49053453_9437 2 Историческая справка 3 Дифференциальные уравнения Теория Обыкновенное дифференциальное уравне́ние (ОДУ) — дифференциальное уравнение для функции от одной переменной (этим оно отличается от уравнения в ...</description>
+    <pubDate>Sun, 30 Mar 2025 15:24:16 GMT</pubDate>
+  </item><item>
+    <title>TinaCMS</title>
+    <link>https://konstantinovandrey.github.io/webapp/TinaCMS</link>
+    <guid>https://konstantinovandrey.github.io/webapp/TinaCMS</guid>
+    <description>created: ‘30-03-2025 11:00’ Моя борьба с deploy-ем www.getmerlin.in/chat/share/d04e87eb-2c26-4a5c-81f8-ce9ee6c7deec links::.</description>
+    <pubDate>Sun, 30 Mar 2025 15:24:15 GMT</pubDate>
+  </item>
+    </channel>
+  </rss>

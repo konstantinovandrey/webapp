@@ -1,0 +1,13 @@
+<!-- Макет для длинных статей -->
+<article class="article-layout">
+    <h1>{{ .Title }}</h1>
+    <div class="meta">
+      <span>Автор: {{ .Params.author }}</span>
+      <span>Дата: {{ .Date.Format "2006-01-02" }}</span>
+    </div>
+    <div class="content">
+      {{ .Content }}
+    </div>
+    <!-- Блок с тегами -->
+    {{ partial "tags.html" . }}
+  </article>

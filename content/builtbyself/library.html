@@ -1,0 +1,387 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  {{ partial "head.html" . }}
+  <style>
+    :root {
+      --color-read: #c8e6c9;
+      --color-reading: #fff3e0;
+      --color-toread: #ffcdd2;
+    }
+    
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .book-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .book-cover {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .book-info {
+      padding: 1rem;
+    }
+
+    .shelf-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .read { background: var(--color-read); }
+    .currently-reading { background: var(--color-reading); }
+    .want-to-read { background: var(--color-toread); }
+
+    .rating {
+      color: #ffd700;
+      margin: 0.5rem 0;
+    }
+
+    .filters {
+      padding: 2rem;
+      background: #f5f5f5;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  {{ partial "header.html" . }}
+
+  <div class="filters">
+    <input type="text" id="search" placeholder="Поиск по книгам...">
+    <select id="shelf-filter">
+      <option value="all">Все полки</option>
+      <option value="read">Прочитано</option>
+      <option value="currently-reading">Читаю сейчас</option>
+      <option value="want-to-read">Хочу прочитать</option>
+    </select>
+    <select id="genre-filter">
+      <option value="all">Все жанры</option>
+      {{ range $genre := .Site.Taxonomies.genres }}
+        <option value="{{ $genre.Page.Title }}">{{ $genre.Page.Title }}</option>
+      {{ end }}
+    </select>
+  </div>
+
+  <div class="books-grid">
+    {{ range .Pages }}
+    <div class="book-card" 
+         data-shelf="{{ .Params.shelf }}"
+         data-genres="{{ delimit .Params.genres ',' }}">
+      <img src="{{ .Params.cover }}" alt="{{ .Title }}" class="book-cover">
+      <span class="shelf-tag {{ .Params.shelf }}">{{ .Params.shelf }}</span>
+      <div class="book-info">
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p class="author">{{ .Params.author }}</p>
+        <div class="rating">
+          {{ range seq .Params.rating }}★{{ end }}
+        </div>
+        <div class="meta">
+          <span>{{ .Params.pages }} стр.</span> |
+          <span>{{ dateFormat "02.01.2006" .Params.start_date }}</span>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const books = document.querySelectorAll('.book-card');
+      const searchInput = document.querySelector('#search');
+      const shelfFilter = document.querySelector('#shelf-filter');
+      const genreFilter = document.querySelector('#genre-filter');
+
+      function filterBooks() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const shelf = shelfFilter.value;
+        const genre = genreFilter.value;
+
+        books.forEach(book => {
+          const title = book.querySelector('h3').textContent.toLowerCase();
+          const author = book.querySelector('.author').textContent.toLowerCase();
+          const bookShelf = book.dataset.shelf;
+          const genres = book.dataset.genres.split(',');
+
+          const matchesSearch = title.includes(searchTerm) || author.includes(searchTerm);
+          const matchesShelf = shelf === 'all' || bookShelf === shelf;
+          const matchesGenre = genre === 'all' || genres.includes(genre);
+
+          book.style.display = (matchesSearch && matchesShelf && matchesGenre) 
+            ? 'block' 
+            : 'none';
+        });
+      }
+
+      searchInput.addEventListener('input', filterBooks);
+      shelfFilter.addEventListener('change', filterBooks);
+      genreFilter.addEventListener('change', filterBooks);
+    });
+  </script>
+
+  {{ partial "footer.html" . }}
+</body>
+</html> -->
+<!-- 
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя библиотека</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>📚 Моя библиотека</h1>
+        <div class="filters">
+            <input type="text" id="search" placeholder="Поиск по книгам...">
+            <select id="shelf-filter">
+                <option value="all">Все полки</option>
+                <option value="read">Прочитано</option>
+                <option value="reading">Читаю сейчас</option>
+                <option value="want">Хочу прочитать</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="books-grid" id="books-container"></div>
+
+    <script src="assets/js/books.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>BookShelf — Ваша цифровая библиотека</title>
+    <style>
+        :root {
+            --primary: #382110;
+            --secondary: #F4F1EA;
+            --accent: #00635D;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            background: var(--secondary);
+        }
+
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .shelves-tabs {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .shelf-tab {
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .shelf-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #eee;
+            border-radius: 2px;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="nav-link">Моя полка</a>
+            <a href="#" class="nav-link">Рекомендации</a>
+            <a href="#" class="nav-link">Обсуждения</a>
+        </nav>
+    </header>
+
+    <div class="shelves-tabs">
+        <div class="shelf-tab active">Все книги</div>
+        <div class="shelf-tab">Читаю сейчас</div>
+        <div class="shelf-tab">Хочу прочитать</div>
+        <div class="shelf-tab">Прочитано</div>
+    </div>
+
+    <div class="books-grid" id="books-container">
+        <!-- Книги будут добавлены через JavaScript -->
+    </div>
+
+    <script>
+        const books = [
+            {
+                id: 1,
+                title: "1984",
+                author: "Джордж Оруэлл",
+                cover: "https://example.com/1984.jpg",
+                rating: 4.2,
+                pages: 328,
+                currentPage: 150,
+                shelf: "reading",
+                genres: ["Антиутопия", "Классика"],
+                reviews: 1254,
+                quotes: 892
+            },
+            // Добавьте больше книг
+        ];
+
+        function renderBooks() {
+            const container = document.getElementById('books-container');
+            container.innerHTML = books.map(book => `
+                <div class="book-card">
+                    <img src="${book.cover}" class="book-cover" alt="${book.title}">
+                    <div class="book-meta">
+                        <h3>${book.title}</h3>
+                        <div class="rating">★ ${book.rating}</div>
+                    </div>
+                    <p class="author">${book.author}</p>
+                    
+                    ${book.shelf === 'reading' ? `
+                    <div class="progress-bar">
+                        <div class="progress-fill" 
+                             style="width: ${(book.currentPage / book.pages) * 100}%">
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span>${book.currentPage} из ${book.pages} стр.</span>
+                    </div>` : ''}
+
+                    <div class="actions">
+                        <button class="btn btn-primary">
+                            ${book.shelf === 'read' ? 'Прочитано' : 
+                             book.shelf === 'reading' ? 'Читаю' : 'Хочу прочитать'}
+                        </button>
+                        <button class="btn">Рецензия</button>
+                    </div>
+
+                    <div class="stats">
+                        <span>${book.reviews} рецензий</span>
+                        <span>${book.quotes} цитат</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', renderBooks);
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+# name: Deploy Main Site with Quartz
+# on:
+#   push:
+#     branches:
+#       - v4
+#   workflow_dispatch:
+
+# permissions:
+#   contents: read
+#   pages: write
+#   id-token: write
+
+# concurrency:
+#   group: "pages"
+#   cancel-in-progress: false
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-22.04
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+
+#       # Установка pnpm
+#       - name: Setup pnpm
+#         uses: pnpm/action-setup@v2
+#         with:
+#           version: 8
+
+#       - name: test pnpm
+   
+
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+#           cache: 'pnpm'
+
+#       # # Кэширование pnpm модулей
+#       # - name: Cache pnpm modules
+#       #   uses: actions/cache@v3
+#       #   with:
+#       #     path: |
+#       #       ~/.pnpm-store
+#       #       **/node_modules
+#       #     key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+#       #     restore-keys: |
+#       #       ${{ runner.os }}-pnpm-
+
+#       - name: Build Quartz (pnpm)
+#         working-directory: ./quartz
+#         run: |
+#           pnpm i --frozen-lockfile
+#           pnpm rebuild sharp
+#           pnpm dlx quartz build
+
+#       - name: Install and Build Tina CMS (pnpm)
+#         env:
+#           NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
+#           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+#         run: |
+#           pnpm i
+#           pnpm dlx tinacms build
+
+#       - name: Install libvips for Sharp
+#         run: sudo apt-get update && sudo apt-get install -y libvips-dev
+
+#       - name: Install Firebase (pnpm)
+#         run: pnpm add firebase
+
+#       - name: Disable Jekyll processing
+#         run: touch ./.nojekyll
+
+#       - name: Upload artifact
+#         uses: actions/upload-pages-artifact@v3
+#         with:
+#           path: ./
+
+#   deploy:
+#     needs: build
+#     environment:
+#       name: github-pages
+#       url: ${{ steps.deployment.outputs.page_url }}
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy to GitHub Pages
+#         id: deployment
+#         uses: actions/deploy-pages@v4

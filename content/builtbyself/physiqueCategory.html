@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>База знаний - Физическая активность</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .active-filter {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Заголовок и описание -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-blue-600 mb-4">Физическая активность</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Узнайте о различных видах физической активности, их преимуществах и как включить их в свою повседневную жизнь для улучшения здоровья и благополучия.
+            </p>
+        </div>
+
+        <!-- Фильтры -->
+        <div class="mb-8 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Фильтровать по:</h2>
+            <div class="flex flex-wrap gap-3">
+                <button class="filter-btn px-4 py-2 rounded-full border border-blue-400 text-blue-500 hover:bg-blue-50 transition" data-filter="all">
+                    Все виды
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-blue-400 text-blue-500 hover:bg-blue-50 transition" data-filter="cardio">
+                    <i class="fas fa-heartbeat mr-2"></i>Кардио
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-blue-400 text-blue-500 hover:bg-blue-50 transition" data-filter="strength">
+                    <i class="fas fa-dumbbell mr-2"></i>Силовые
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-blue-400 text-blue-500 hover:bg-blue-50 transition" data-filter="flexibility">
+                    <i class="fas fa-spa mr-2"></i>Гибкость
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-blue-400 text-blue-500 hover:bg-blue-50 transition" data-filter="balance">
+                    <i class="fas fa-balance-scale mr-2"></i>Баланс
+                </button>
+            </div>
+        </div>
+
+        <!-- Карточки упражнений -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="exercises-container">
+            <!-- Карточка 1 -->
+            <div class="exercise-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-category="cardio">
+                <div class="relative h-48 bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-running text-white text-6xl"></i>
+                    <span class="absolute top-3 right-3 bg-white text-blue-600 px-2 py-1 rounded-full text-xs font-semibold">Кардио</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Бег</h3>
+                    <p class="text-gray-600 mb-4">Отличное кардио упражнение для улучшения выносливости и сжигания калорий. Начните с 20-30 минут 3 раза в неделю.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-fire"></i>
+                            <span class="ml-1 text-gray-600">300-600 ккал/час</span>
+                        </div>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium" onclick="showDetails('running')">
+                            Подробнее <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="exercise-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-category="strength">
+                <div class="relative h-48 bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center">
+                    <i class="fas fa-dumbbell text-white text-6xl"></i>
+                    <span class="absolute top-3 right-3 bg-white text-red-600 px-2 py-1 rounded-full text-xs font-semibold">Силовые</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Тренировка с весом</h3>
+                    <p class="text-gray-600 mb-4">Укрепляет мышцы, улучшает метаболизм и поддерживает здоровье костей. Рекомендуется 2-3 раза в неделю.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-fire"></i>
+                            <span class="ml-1 text-gray-600">200-400 ккал/час</span>
+                        </div>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium" onclick="showDetails('weight')">
+                            Подробнее <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="exercise-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-category="flexibility">
+                <div class="relative h-48 bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center">
+                    <i class="fas fa-spa text-white text-6xl"></i>
+                    <span class="absolute top-3 right-3 bg-white text-green-600 px-2 py-1 rounded-full text-xs font-semibold">Гибкость</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Йога</h3>
+                    <p class="text-gray-600 mb-4">Улучшает гибкость, баланс и психическое здоровье. Подходит для ежедневной практики по 15-60 минут.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-fire"></i>
+                            <span class="ml-1 text-gray-600">150-300 ккал/час</span>
+                        </div>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium" onclick="showDetails('yoga')">
+                            Подробнее <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 4 -->
+            <div class="exercise-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-category="balance">
+                <div class="relative h-48 bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-balance-scale text-white text-6xl"></i>
+                    <span class="absolute top-3 right-3 bg-white text-purple-600 px-2 py-1 rounded-full text-xs font-semibold">Баланс</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Тай-чи</h3>
+                    <p class="text-gray-600 mb-4">Древняя китайская практика, улучшающая баланс, координацию и снижающая стресс. Идеально для пожилых людей.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-fire"></i>
+                            <span class="ml-1 text-gray-600">150-250 ккал/час</span>
+                        </div>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium" onclick="showDetails('taichi')">
+                            Подробнее <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 5 -->
+            <div class="exercise-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-category="cardio">
+                <div class="relative h-48 bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-bicycle text-white text-6xl"></i>
+                    <span class="absolute top-3 right-3 bg-white text-blue-600 px-2 py-1 rounded-full text-xs font-semibold">Кардио</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Велоспорт</h3>
+                    <p class="text-gray-600 mb-4">Отличная кардионагрузка с низким воздействием на суставы. Можно заниматься на улице или в зале.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-fire"></i>
+                            <span class="ml-1 text-gray-600">400-700 ккал/час</span>
+                        </div>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium" onclick="showDetails('cycling')">
+                            Подробнее <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 6 -->
+            <div class="exercise-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-category="strength">
+                <div class="relative h-48 bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center">
+                    <i class="fas fa-hands-helping text-white text-6xl"></i>
+                    <span class="absolute top-3 right-3 bg-white text-red-600 px-2 py-1 rounded-full text-xs font-semibold">Силовые</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Упражнения с собственным весом</h3>
+                    <p class="text-gray-600 mb-4">Отжимания, приседания, подтягивания - не требуют оборудования и эффективны для всего тела.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center text-yellow-400">
+                            <i class="fas fa-fire"></i>
+                            <span class="ml-1 text-gray-600">250-450 ккал/час</span>
+                        </div>
+                        <button class="text-blue-500 hover:text-blue-700 font-medium" onclick="showDetails('bodyweight')">
+                            Подробнее <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Рекомендации по активности -->
+        <div class="bg-white p-8 rounded-xl shadow-md mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Рекомендации ВОЗ по физической активности</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Взрослые -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center">
+                        <i class="fas fa-user mr-3"></i> Для взрослых (18-64 лет)
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Не менее 150 минут умеренной или 75 минут интенсивной аэробной активности в неделю</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Силовые упражнения 2 и более дней в неделю для основных групп мышц</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Ограничение сидячего времени - чаще вставайте и двигайтесь</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Пожилые -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center">
+                        <i class="fas fa-user-tie mr-3"></i> Для пожилых (65+ лет)
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Те же рекомендации, что и для взрослых, с акцентом на баланс и гибкость</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Упражнения на равновесие 3 и более дней в неделю для профилактики падений</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span>Адаптация активности к возможностям и состоянию здоровья</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Трекер активности -->
+        <div class="bg-white p-8 rounded-xl shadow-md">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Трекер недельной активности</h2>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Прогресс -->
+                <div class="md:w-1/3">
+                    <div class="flex flex-col items-center">
+                        <div class="relative w-40 h-40 mb-4">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <!-- Фоновый круг -->
+                                <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"/>
+                                <!-- Прогресс -->
+                                <circle class="progress-ring__circle text-blue-500" stroke-width="10" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" stroke-dasharray="251.2" stroke-dashoffset="175.84"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                <span class="text-3xl font-bold text-gray-800" id="progress-percent">30%</span>
+                                <span class="text-gray-600">цели достигнуто</span>
+                            </div>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-medium transition" onclick="resetProgress()">
+                            Сбросить прогресс
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Дни недели -->
+                <div class="md:w-2/3">
+                    <div class="grid grid-cols-7 gap-2 mb-6">
+                        <div class="text-center font-medium text-gray-500">Пн</div>
+                        <div class="text-center font-medium text-gray-500">Вт</div>
+                        <div class="text-center font-medium text-gray-500">Ср</div>
+                        <div class="text-center font-medium text-gray-500">Чт</div>
+                        <div class="text-center font-medium text-gray-500">Пт</div>
+                        <div class="text-center font-medium text-gray-500">Сб</div>
+                        <div class="text-center font-medium text-gray-500">Вс</div>
+                        
+                        <div class="day-box" data-day="mon"><div class="h-12 rounded bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"></div></div>
+                        <div class="day-box" data-day="tue"><div class="h-12 rounded bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"></div></div>
+                        <div class="day-box" data-day="wed"><div class="h-12 rounded bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"></div></div>
+                        <div class="day-box" data-day="thu"><div class="h-12 rounded bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"></div></div>
+                        <div class="day-box" data-day="fri"><div class="h-12 rounded bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"></div></div>
+                        <div class="day-box" data-day="sat"><div class="h-12 rounded bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"></div></div>
+                        <div class="day-box" data-day="sun"><div class="h-12 rounded bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition"></div></div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-medium text-blue-700 mb-2">Добавить активность</h4>
+                        <div class="flex gap-2">
+                            <select class="flex-grow px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" id="activity-type">
+                                <option value="cardio">Кардио</option>
+                                <option value="strength">Силовая</option>
+                                <option value="flexibility">Гибкость</option>
+                                <option value="balance">Баланс</option>
+                            </select>
+                            <input type="number" min="1" max="300" class="w-20 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" id="activity-minutes" placeholder="Мин.">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-medium transition" onclick="addActivity()">
+                                Добавить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" id="modal">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800" id="modal-title">Бег</h3>
+                    <button class="text-gray-500 hover:text-gray-700" onclick="closeModal()">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-700 mb-2">Преимущества</h4>
+                        <ul class="space-y-2 text-gray-600" id="modal-benefits">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Улучшает сердечно-сосудистую систему</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Сжигает калории и помогает контролировать вес</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Укрепляет мышцы ног и кора</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-700 mb-2">Рекомендации</h4>
+                        <ul class="space-y-2 text-gray-600" id="modal-recommendations">
+                            <li class="flex items-start">
+                                <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                                <span>Начинайте с 20-30 минут 3 раза в неделю</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                                <span>Используйте правильную обувь для бега</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                                <span>Сочетайте с упражнениями на растяжку</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-lg text-gray-700 mb-2">Как начать</h4>
+                    <p class="text-gray-600" id="modal-start">
+                        Начните с быстрой ходьбы, постепенно увеличивая темп. Чередуйте бег и ходьбу (например, 1 минута бега, 2 минуты ходьбы). Постепенно увеличивайте время бега и сокращайте время ходьбы.
+                    </p>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-lg text-blue-700 mb-2">Видео-инструкция</h4>
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded flex items-center justify-center">
+                        <i class="fas fa-play-circle text-5xl text-blue-500 opacity-70"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Фильтрация упражнений
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+                this.classList.add('active-filter');
+                
+                const filter = this.dataset.filter;
+                const exercises = document.querySelectorAll('.exercise-card');
+                
+                exercises.forEach(exercise => {
+                    if (filter === 'all' || exercise.dataset.category === filter) {
+                        exercise.style.display = 'block';
+                    } else {
+                        exercise.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Инициализация - показать все упражнения
+        document.querySelector('.filter-btn[data-filter="all"]').classList.add('active-filter');
+
+        // Модальное окно
+        function showDetails(exercise) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const benefits = document.getElementById('modal-benefits');
+            const recommendations = document.getElementById('modal-recommendations');
+            const start = document.getElementById('modal-start');
+            
+            // Здесь можно добавить данные для разных упражнений
+            switch(exercise) {
+                case 'running':
+                    title.textContent = 'Бег';
+                    benefits.innerHTML = `
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Улучшает сердечно-сосудистую систему</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Сжигает калории и помогает контролировать вес</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Укрепляет мышцы ног и кора</span>
+                        </li>
+                    `;
+                    recommendations.innerHTML = `
+                        <li class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>Начинайте с 20-30 минут 3 раза в неделю</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>Используйте правильную обувь для бега</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>Сочетайте с упражнениями на растяжку</span>
+                        </li>
+                    `;
+                    start.textContent = 'Начните с быстрой ходьбы, постепенно увеличивая темп. Чередуйте бег и ходьбу (например, 1 минута бега, 2 минуты ходьбы). Постепенно увеличивайте время бега и сокращайте время ходьбы.';
+                    break;
+                    
+                case 'weight':
+                    title.textContent = 'Тренировка с весом';
+                    benefits.innerHTML = `
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Увеличивает мышечную массу и силу</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Улучшает метаболизм и сжигает жир</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Укрепляет кости и суставы</span>
+                        </li>
+                    `;
+                    recommendations.innerHTML = `
+                        <li class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>Начинайте с легких весов и правильной техники</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>Тренируйте все основные группы мышц 2-3 раза в неделю</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>Давайте мышцам 48 часов на восстановление</span>
+                        </li>
+                    `;
+                    start.textContent = 'Начните с базовых упражнений: приседания, отжимания, тяги. Используйте гантели или резиновые ленты, если нет доступа в тренажерный зал. Выполняйте 2-3 подхода по 8-12 повторений на каждую группу мышц.';
+                    break;
+                    
+                // Можно добавить другие упражнения по аналогии
+                default:
+                    title.textContent = 'Упражнение';
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Трекер активности
+        let progress = 0;
+        const progressCircle = document.querySelector('.progress-ring__circle');
+        const circumference = 2 * Math.PI * 40;
+        
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = circumference;
+        
+        function updateProgress() {
+            const offset = circumference - (progress / 100) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+            document.getElementById('progress-percent').textContent = `${progress}%`;
+        }
+        
+        function addActivity() {
+            const minutes = parseInt(document.getElementById('activity-minutes').value) || 0;
+            const type = document.getElementById('activity-type').value;
+            
+            if (minutes > 0) {
+                progress = Math.min(progress + 10, 100);
+                updateProgress();
+                
+                // Здесь можно добавить логику сохранения активности
+                alert(`Добавлено ${minutes} минут ${type} активности!`);
+                document.getElementById('activity-minutes').value = '';
+            }
+        }
+        
+        function resetProgress() {
+            progress = 0;
+            updateProgress();
+        }
+        
+        // Обработчики для дней недели
+        document.querySelectorAll('.day-box').forEach(day => {
+            day.addEventListener('click', function() {
+                const dayDiv = this.querySelector('div');
+                
+                if (dayDiv.classList.contains('bg-gray-200')) {
+                    dayDiv.classList.remove('bg-gray-200');
+                    dayDiv.classList.add('bg-blue-500');
+                    dayDiv.innerHTML = '<i class="fas fa-check text-white text-xl"></i>';
+                } else {
+                    dayDiv.classList.remove('bg-blue-500');
+                    dayDiv.classList.add('bg-gray-200');
+                    dayDiv.innerHTML = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

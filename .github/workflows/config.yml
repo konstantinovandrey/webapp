@@ -1,0 +1,192 @@
+name: Deploy Main Site with Quartz
+on:
+  push:
+    branches:
+      - v4  
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for git info
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Quartz
+        working-directory: ./quartz
+        run: |
+          npm ci 
+          npm rebuild sharp
+          npx quartz build
+
+      # Не понимаю как оно собирается, вроде и компилируется, но немного не понимаю.
+      - name: Install and Build Tina CMS 
+        env:
+          NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+        run: |
+          npm ci 
+          npx tinacms build 
+          # mkdir -p ../quartz/public/admin
+          # cp -r admin/* ../quartz/public/admin/
+
+
+      - name: Install libvips for Sharp
+        run: sudo apt-get update && sudo apt-get install -y libvips-dev
+
+    
+      # - name: Install Firebase #Authentication for website
+      #   run: npm install firebase
+      # Build Quartz
+      # - name: Install Quartz Dependencies # Очень избыточная хрень
+      #   working-directory: ./quartz
+      #   run: npm ci
+
+
+      - name: Disable Jekyll processing
+        run: |
+          touch ./.nojekyll
+
+
+      - name: Display File Structure
+        run: |
+          echo "Project File Structure:"
+          tree -L 5 
+
+   #------------------------------------------------------#
+   # такие проблемы тут наворотил, жесть просто.#
+     
+      # Добавьте этот шаг в GitHub Actions, чтобы увидеть реальную структуру
+      # - name: Check Tina build structure
+      #   run: |
+      #     echo "Listing tina directory:"
+      #     ls -la tina/
+      #     echo "Listing admin directory:"
+      #     ls -la tina/admin/
+      #     echo "Checking if assets exists:"
+      #     ls -la tina/admin/assets/ || echo "Assets directory not found!"
+      
+        
+      # - name: Copy Tina Admin with assets
+      #   run: |
+      #     # Создаем директорию для админки
+      #     mkdir -p ./admin
+          
+      #     # Рекурсивно копируем всё содержимое с сохранением структуры
+      #     cp -r tina/admin/* ./admin/
+          
+      #     # Проверяем, что assets скопированы
+      #     ls -la ./admin/
+      #     ls -la ./admin/assets/ || echo "Assets not copied!"
+      #      # Копируем Vite SVG если существует
+      #     if [ -f "tina/admin/vite.svg" ]; then
+      #       cp tina/admin/vite.svg ./admin/
+      #     fi
+      # - name: Fix paths in index.html
+      #   run: |
+      #     # Ищем все index.html в директории admin
+      #     find . -name "index.html" | grep admin
+          
+      #     # Исправляем пути в найденном файле (предполагаем tina/admin/index.html)
+      #     sed -i 's|="/admin/assets/|="/webapp/tina/admin/assets/|g' tina/admin/index.html
+      #     sed -i 's|="/vite.svg"|="/webapp/tina/admin/vite.svg"|g' tina/admin/index.html
+          
+      #     # Добавляем base тег (альтернативный подход)
+      #     # sed -i 's|<head>|<head>\n  <base href="/webapp/tina/admin/">|g' tina/admin/index.html
+          
+      #     # Проверяем изменения
+      #     grep -A 3 assets tina/admin/index.html
+
+      # - name: Modify HTML with Node.js
+      #   run: |
+      #     cat > fix-paths.js << 'EOF'
+      #     const fs = require('fs');
+      #     const path = require('path');
+          
+      #     // Находим файл index.html
+      #     const htmlFile = 'tina/admin/index.html';
+          
+      #     if (fs.existsSync(htmlFile)) {
+      #       let html = fs.readFileSync(htmlFile, 'utf8');
+            
+      #       // Заменяем пути
+      #       html = html.replace(/="\/admin\/assets\//g, '="/webapp/tina/admin/assets/');
+      #       html = html.replace(/="\/vite\.svg"/g, '="/webapp/tina/admin/vite.svg"');
+            
+      #       // Записываем обратно
+      #       fs.writeFileSync(htmlFile, html);
+      #       console.log('✅ Пути успешно исправлены в', htmlFile);
+      #     } else {
+      #       console.error('❌ Файл не найден:', htmlFile);
+      #     }
+      #     EOF
+              
+      #         node fix-paths.js
+        
+      # - name: Check modified HTML
+      #   run: |
+      #     echo "Проверка содержимого index.html:"
+      #     grep -n -A 2 -B 2 "assets" tina/admin/index.html || echo "Строка с assets не найдена"
+            
+      # - name: Fix HTML paths in Tina admin
+      #   run: |
+      #     # Заменяем /admin на /webapp/admin
+      #     sed -i 's|="/admin/|="/webapp/admin/|g' admin/index.html
+      # - name: Build tina CMS & Quartz
+      #   working-directory: ./quartz
+      #   run: |
+      #     npx tinacms build --rootPath ./tina
+      #     npx quartz buildtz build
+      # - name: Build Quartz
+      #   working-directory: ./quartz
+      #   run: |
+      #     npm ci
+      #     npx quartz build
+     
+
+      # Create merged site structure
+      # - name: Copy Quartz to Main Site
+      #   run: |
+      #     # Create .nojekyll file to prevent Jekyll processing
+      #     touch .nojekyll
+      #     # Create final site structur
+      #     mkdir -p webapp
+
+      #     # Copy main site files (if any)
+      #     # cp -r your-main-content/* webapp/
+
+      #     # Copy Quartz-built files to notes directory
+      #     mkdir -p webapp/notes
+      #     cp -r quartz/public/* webapp/notes/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

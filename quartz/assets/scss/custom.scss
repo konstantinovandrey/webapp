@@ -1,0 +1,17 @@
+// Стили для особого макета
+.special-layout {
+    .wide-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+  
+    .special-title {
+      color: #2ecc71;
+      text-align: center;
+    }
+  
+    .content-fullwidth {
+      column-width: 800px;
+    }
+  }

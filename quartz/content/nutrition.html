@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Здоровое питание - Ваш гид в мире правильного питания</title>
+    <style>
+        /* Основные стили */
+        :root {
+            --primary-color: #8bc34a;
+            --secondary-color: #4caf50;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --dark-bg: #263238;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Героическая секция */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://source.unsplash.com/1600x900/?healthy-food');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Секция особенностей */
+        .features {
+            padding: 80px 0;
+            background-color: var(--light-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            color: #666;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* Секция заметок Obsidian */
+        .obsidian-notes {
+            padding: 80px 0;
+        }
+        
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .note-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        
+        .note-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .note-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .note-content {
+            padding: 20px;
+        }
+        
+        .note-content h3 {
+            margin-bottom: 10px;
+        }
+        
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+        }
+        
+        .note-tag {
+            background-color: #e0f2f1;
+            color: var(--secondary-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        /* Раздел о автора */
+        .about {
+            padding: 80px 0;
+            background-color: var(--light-bg);
+        }
+        
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        
+        .about-content h2 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .about-content p {
+            margin-bottom: 15px;
+        }
+        
+        /* Подвал сайта */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+            font-size: 14px;
+        }
+        
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            nav li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .about-inner {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: 1;
+            }
+            
+            .about-content {
+                order: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/40x40" alt="Логотип">
+                    <h1>НутриЗнания</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Главная</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Рецепты</a></li>
+                        <li><a href="#">Консультации</a></li>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Героическая секция -->
+    <section class="hero">
+        <div class="container">
+            <h2>Ваш путь к здоровому питанию</h2>
+            <p>Открывайте для себя проверенные рецепты, научные исследования и практические советы о правильном питании на основе доказательной медицины</p>
+            <a href="#" class="btn">Начать сейчас</a>
+        </div>
+    </section>
+
+    <!-- Секция особенностей -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Почему именно мы?</h2>
+                <p>Наш подход к здоровому питанию основан на научных данных и практическом опыте</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Научный подход</h3>
+                    <p>Все рекомендации основаны на современных исследованиях в области диетологии и нутрициологии</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🥗</div>
+                    <h3>Проверенные рецепты</h3>
+                    <p>Коллекция вкусных и полезных рецептов с расчетом калорий и питательной ценности</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Структурированные знания</h3>
+                    <p>Заметки организованы с помощью системы Obsidian, что делает информацию доступной и связанной</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция заметок Obsidian -->
+    <section class="obsidian-notes">
+        <div class="container">
+            <div class="section-title">
+                <h2>Последние публикации</h2>
+                <p>Изучайте наши заметки о здоровом питании, основанные на системе Zettelkasten</p>
+            </div>
+            <div class="notes-grid">
+                <div class="note-card">
+                    <div class="note-image" style="background-image: url('https://source.unsplash.com/600x400/?vegetables')"></div>
+                    <div class="note-content">
+                        <span class="note-tag">Питание</span>
+                        <h3>Как правильно составить рацион с овощами</h3>
+                        <p>Научный взгляд на то, какие овощи наиболее полезны и как их правильно сочетать для максимальной пользы...</p>
+                        <div class="note-meta">
+                            <span>15 марта 2025</span>
+                            <span>10 мин. чтения</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <div class="note-image" style="background-image: url('https://source.unsplash.com/600x400/?proteins')"></div>
+                    <div class="note-content">
+                        <span class="note-tag">Белки</span>
+                        <h3>Растительные источники белка: полный гид</h3>
+                        <p>Разбираемся, как получить достаточное количество белка на растительной диете и какие продукты выбирать...</p>
+                        <div class="note-meta">
+                            <span>10 марта 2025</span>
+                            <span>8 мин. чтения</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card">
+                    <div class="note-image" style="background-image: url('https://source.unsplash.com/600x400/?metabolism')"></div>
+                    <div class="note-content">
+                        <span class="note-tag">Метаболизм</span>
+                        <h3>Как ускорить метаболизм естественным путем</h3>
+                        <p>Научные факты о том, что реально влияет на скорость обмена веществ и как это использовать...</p>
+                        <div class="note-meta">
+                            <span>5 марта 2025</span>
+                            <span>12 мин. чтения</span> 
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="#" class="btn">Смотреть все заметки</a>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Раздел о авторе -->
+        <section class="about">
+            <div class="container">
+                <div class="about-inner">
+                    <div class="about-image">
+                        <img src="https://source.unsplash.com/600x600/?nutritionist" alt="Фото автора">
+                    </div>
+                    <div class="about-content">
+                        <h2>О проекте</h2>
+                        <p>Добро пожаловать в мой проект по здоровому питанию! Меня зовут Андрей, и я увлечен изучением принципов правильного питания на основе научных данных.</p>
+                        <p>Этот сайт — мое цифровое "второе мышление", где я структурирую и делюсь знаниями о питании, используя метод связанных заметок через Obsidian.</p>
+                        <p>Моя цель — создать доступную и научно обоснованную базу знаний о питании, которая поможет вам принимать осознанные решения о своем здоровье.</p>
+                        <a href="#" class="btn">Подробнее обо мне</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Секция подписки -->
+        <section class="subscribe">
+            <div class="container">
+                <div style="text-align: center; max-width: 600px; margin: 0 auto; padding: 80px 0;">
+                    <h2 style="font-size: 32px; color: var(--primary-color); margin-bottom: 20px;">Подпишитесь на обновления</h2>
+                    <p style="margin-bottom: 30px;">Получайте новые заметки и материалы по правильному питанию на свою почту</p>
+                    <form style="display: flex; margin-bottom: 20px;">
+                        <input type="email" placeholder="Ваш email" style="flex: 1; padding: 12px 15px; border: 1px solid #ddd; border-radius: 30px 0 0 30px; font-size: 16px;">
+                        <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 25px; border-radius: 0 30px 30px 0; font-weight: 600; cursor: pointer;">Подписаться</button>
+                    </form>
+                    <p style="font-size: 14px; color: #666;">Никакого спама, только полезная информация. Отписаться можно в любой момент.</p>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Секция избранных категорий -->
+        <section class="categories" style="padding: 80px 0; background-color: var(--light-bg);">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Категории заметок</h2>
+                    <p>Исследуйте наши материалы по темам, которые вас интересуют</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;">
+                    <div style="background-color: white; padding: 30px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div style="font-size: 40px; margin-bottom: 15px;">🥦</div>
+                        <h3 style="margin-bottom: 10px;">Овощи и фрукты</h3>
+                        <p style="font-size: 14px; color: #666;">32 заметки</p>
+                    </div>
+                    <div style="background-color: white; padding: 30px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div style="font-size: 40px; margin-bottom: 15px;">🍗</div>
+                        <h3 style="margin-bottom: 10px;">Белки</h3>
+                        <p style="font-size: 14px; color: #666;">18 заметок</p>
+                    </div>
+                    <div style="background-color: white; padding: 30px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div style="font-size: 40px; margin-bottom: 15px;">🍚</div>
+                        <h3 style="margin-bottom: 10px;">Углеводы</h3>
+                        <p style="font-size: 14px; color: #666;">24 заметки</p>
+                    </div>
+                    <div style="background-color: white; padding: 30px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div style="font-size: 40px; margin-bottom: 15px;">🥑</div>
+                        <h3 style="margin-bottom: 10px;">Жиры</h3>
+                        <p style="font-size: 14px; color: #666;">16 заметок</p>
+                    </div>
+                    <div style="background-color: white; padding: 30px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div style="font-size: 40px; margin-bottom: 15px;">💊</div>
+                        <h3 style="margin-bottom: 10px;">Витамины</h3>
+                        <p style="font-size: 14px; color: #666;">29 заметок</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Секция часто задаваемых вопросов -->
+        <section class="faq" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Часто задаваемые вопросы</h2>
+                    <p>Ответы на популярные вопросы о нашем проекте и материалах</p>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="padding: 20px; background-color: var(--light-bg); font-weight: 600;">Как организованы заметки на сайте?</div>
+                        <div style="padding: 20px;">
+                            Все заметки импортируются из системы Obsidian и связаны между собой по принципу Zettelkasten. Вы можете переходить по ссылкам между связанными концепциями, что помогает лучше понять тему. Материалы также организованы по категориям и тегам для удобного поиска.
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="padding: 20px; background-color: var(--light-bg); font-weight: 600;">На каких источниках основаны ваши материалы?</div>
+                        <div style="padding: 20px;">
+                            Мы используем только проверенную научную информацию из рецензируемых исследований, материалов ведущих диетологов и организаций здравоохранения. Все источники указываются в конце каждой заметки для проверки и дальнейшего изучения.
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px; border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="padding: 20px; background-color: var(--light-bg); font-weight: 600;">Как часто обновляются материалы?</div>
+                        <div style="padding: 20px;">
+                            Новые заметки публикуются 2-3 раза в неделю. Существующие материалы обновляются при появлении новых исследований или данных. Подписавшись на рассылку, вы будете получать уведомления о новых и обновленных заметках.
+                        </div>
+                    </div>
+                    <div style="border: 1px solid #eee; border-radius: 10px; overflow: hidden;">
+                        <div style="padding: 20px; background-color: var(--light-bg); font-weight: 600;">Можно ли скачать материалы для офлайн-чтения?</div>
+                        <div style="padding: 20px;">
+                            Да, зарегистрированные пользователи могут экспортировать заметки в форматы PDF, Markdown или HTML для чтения офлайн. Также доступна функция синхронизации с вашим личным хранилищем Obsidian через плагин.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Подвал сайта -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>НутриЗнания</h3>
+                        <p>Ваш источник проверенной информации о здоровом питании, основанной на научных данных и структурированной с помощью метода Zettelkasten.</p>
+                        <div class="social-links" style="margin-top: 15px;">
+                            <a href="#"><span>FB</span></a>
+                            <a href="#"><span>TW</span></a>
+                            <a href="#"><span>IG</span></a>
+                            <a href="#"><span>TG</span></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Категории</h3>
+                        <ul>
+                            <li><a href="#">Рецепты</a></li>
+                            <li><a href="#">Макронутриенты</a></li>
+                            <li><a href="#">Витамины и минералы</a></li>
+                            <li><a href="#">Диеты</a></li>
+                            <li><a href="#">Исследования</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Полезные ссылки</h3>
+                        <ul>
+                            <li><a href="#">О проекте</a></li>
+                            <li><a href="#">Обратная связь</a></li>
+                            <li><a href="#">Политика конфиденциальности</a></li>
+                            <li><a href="#">Условия использования</a></li>
+                            <li><a href="#">Карта сайта</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Связаться с нами</h3>
+                        <ul>
+                            <li><a href="mailto:info@nutriknowledge.ru">info@nutriknowledge.ru</a></li>
+                            <li><a href="tel:+74991234567">+7 (499) 123-45-67</a></li>
+                            <li>г. Москва, ул. Примерная, д. 1</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 НутриЗнания. Все права защищены.</p>
+                </div>
+            </div>
+        </footer>
+    
+        <!-- JavaScript для базовой функциональности -->
+        <script>
+            // Плавная прокрутка для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+    
+            // Активное состояние для навигации
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        </script>
+    </body>
+    </html>
+    

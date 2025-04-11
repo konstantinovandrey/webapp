@@ -1,0 +1,11 @@
+<div class="note-layout">
+    <div class="note-header">
+      <h2>{{ .Title }}</h2>
+      <div class="backlinks">
+        {{ partial "backlinks.html" . }}
+      </div>
+    </div>
+    <div class="note-content">
+      {{ .Content }}
+    </div>
+  </div>

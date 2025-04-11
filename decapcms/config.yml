@@ -1,0 +1,34 @@
+backend:
+  name: github
+  repo: konstantinovandrey/webapp
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+  preview_context: pages/build
+  branch: v4
+  # site_id: 6425ba3b-53f2-4598-97bf-3f1d8a2ca05a
+  # опционально
+  use_graphql: true
+
+media_folder: "assets/uploads" # Куда будут загружаться медиафайлы
+public_folder: "/assets/uploads" # Путь к медиафайлам из браузера  
+site_url: https://konstantinovandrey.github.io/webapp
+
+#Тоже обязана быть настройкадля коллекции, decap говорит это сердце.
+# collections:
+  # - name: "posts"
+  #   label: "Публикации"
+  #   folder: "_posts"
+  #   create: true
+  #   slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+  # field - Important!
+collections:
+- name: "posts"
+  label: "Публикации"
+  folder: "_posts"
+  create: true
+  slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+  fields:
+    - {label: "Заголовок", name: "title", widget: "string"}
+    - {label: "Дата публикации", name: "date", widget: "datetime"}
+    - {label: "Описание", name: "description", widget: "text"}
+    - {label: "Содержимое", name: "body", widget: "markdown"}

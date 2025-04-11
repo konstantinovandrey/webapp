@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали книги</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+</head>
+<body>
+    <div class="book-detail" id="book-detail">
+        <a href="/" class="back-link">← Назад к библиотеке</a>
+        <div class="book-header" id="book-header"></div>
+        <div class="book-content" id="book-content"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const bookId = params.get('id');
+            
+            const book = books.find(b => b.id === bookId);
+            if (!book) window.location = '/';
+
+            // Загрузка Markdown
+            const response = await fetch(book.content);
+            const markdown = await response.text();
+
+            // Рендер
+            document.getElementById('book-header').innerHTML = `
+                <img src="${book.cover}" class="book-cover-large">
+                <div class="book-meta">
+                    <h1>${book.title}</h1>
+                    <p class="author">${book.author}</p>
+                    <div class="rating-large">${'★'.repeat(book.rating)}</div>
+                    <div class="dates">
+                        <span>Начало: ${new Date(book.startDate).toLocaleDateString()}</span>
+                        ${book.endDate ? `<span>Окончание: ${new Date(book.endDate).toLocaleDateString()}</span>` : ''}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('book-content').innerHTML = marked.parse(markdown);
+        });
+    </script>
+</body>
+</html>
