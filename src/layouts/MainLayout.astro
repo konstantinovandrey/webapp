@@ -1,0 +1,272 @@
+---
+// Типы пропсов для компонента
+interface Props {
+  title: string;
+  description?: string;
+}
+
+// Получение пропсов
+const { title, description = "Информация о питании при восстановлении после СИБР" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="/" class="logo">НутриВосстановление</a>
+          <nav class="nav">
+            <ul class="nav-list">
+              <li><a href="/" class="nav-link">Главная</a></li>
+              <li><a href="/recovery-nutrition" class="nav-link">Питание при СИБР</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; {new Date().getFullYear()} НутриВосстановление. Все права защищены.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /* Основные цвета */
+    --color-primary: #3B82F6; /* Синий */
+    --color-primary-dark: #2563EB;
+    --color-primary-light: #DBEAFE;
+    
+    --color-secondary: #F97316; /* Оранжевый */
+    --color-secondary-dark: #EA580C;
+    --color-secondary-light: #FFEDD5;
+    
+    --color-text: #1F2937;
+    --color-text-light: #6B7280;
+    --color-background: #FFFFFF;
+    --color-background-alt: #F9FAFB;
+    
+    /* Размеры и отступы */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Шрифты */
+    --font-family: 'Inter', system-ui, sans-serif;
+    --font-size-base: 1rem;
+    --font-size-sm: 0.875rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: var(--font-family);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    line-height: 1.6;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+  }
+
+  p {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  /* Заголовок */
+  .header {
+    background-color: var(--color-background);
+    border-bottom: 1px solid #E5E7EB;
+    padding: var(--spacing-md) 0;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-md);
+  }
+
+  .nav-link {
+    color: var(--color-text);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  /* Подвал */
+  .footer {
+    background-color: var(--color-background-alt);
+    padding: var(--spacing-lg) 0;
+    margin-top: var(--spacing-xl);
+    text-align: center;
+    color: var(--color-text-light);
+  }
+
+  /* Плиточный стиль */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+  }
+
+  .tile {
+    padding: var(--spacing-lg);
+    color: white;
+    height: 100%;
+  }
+
+  .tile.blue {
+    background-color: var(--color-primary);
+  }
+
+  .tile.orange {
+    background-color: var(--color-secondary);
+  }
+
+  .tile-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* Секции */
+  .section {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .section-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* Героическая секция */
+  .hero {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background-alt);
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-light);
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+  }
+
+  /* Стадии */
+  .stage-card {
+    border: 1px solid #E5E7EB;
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .stage-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .stage-description {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .foods-list {
+    list-style-position: inside;
+    margin-left: var(--spacing-sm);
+  }
+
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .hero-title {
+      font-size: var(--font-size-3xl);
+    }
+    
+    .hero-subtitle {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>
