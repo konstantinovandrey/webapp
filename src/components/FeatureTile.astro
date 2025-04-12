@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  color: "blue" | "orange";
+}
+
+const { title, description, color } = Astro.props;
+---
+
+<div class={`tile ${color}`}>
+  <h3 class="tile-title">{title}</h3>
+  <p>{description}</p>
+</div>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  stageName: string;
+  description: string;
+  foods: string[];
+}
+
+const { stageName, description, foods } = Astro.props;
+---
+
+<div class="stage-card">
+  <h3 class="stage-title">{stageName}</h3>
+  <p class="stage-description">{description}</p>
+  
+  <h4>Рекомендуемые продукты:</h4>
+  <ul class="foods-list">
+    {foods.map(food => <li>{food}</li>)}
+  </ul>
+</div>

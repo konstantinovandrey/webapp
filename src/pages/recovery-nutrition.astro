@@ -1,0 +1,93 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../layouts/MainLayout.astro";
+import FeatureTile from "../components/FeatureTile.astro";
+import NutritionStage from "../components/NutritionStage.astro";
+
+// Получение данных из коллекции TinaCMS
+const nutritionCollection = await getCollection("nutrition");
+const nutritionData = nutritionCollection[0]; // Берем первый документ
+
+const { title, description, hero, features, nutritionStages, body } = nutritionData.data;
+
+// Рендеринг Markdown контента
+const { Content } = await nutritionData.render();
+---
+
+<MainLayout title={title} description={description}>
+  <!-- Героическая секция -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">{hero.headline}</h1>
+      <p class="hero-subtitle">{hero.subheadline}</p>
+    </div>
+  </section>
+
+  <!-- Особенности питания (плитки) -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Ключевые аспекты питания</h2>
+      <div class="grid">
+        {features.map((feature) => (
+          <FeatureTile 
+            title={feature.title} 
+            description={feature.description} 
+            color={feature.color} 
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Этапы питания -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Этапы восстановительного питания</h2>
+      {nutritionStages.map((stage) => (
+        <NutritionStage 
+          stageName={stage.stageName} 
+          description={stage.description} 
+          foods={stage.foods} 
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Основной контент из Markdown -->
+  <section class="section">
+    <div class="container">
+      <div class="content">
+        <Content />
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .content h1 {
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .content h2 {
+    font-size: var(--font-size-2xl);
+    color: var(--color-secondary);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .content ul, .content ol {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .content li {
+    margin-bottom: var(--spacing-xs);
+  }
+</style>
